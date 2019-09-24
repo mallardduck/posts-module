@@ -26,16 +26,6 @@ class CategoryModel extends PostsCategoriesEntryModel implements CategoryInterfa
     }
 
     /**
-     * Get the name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Get the description.
      *
      * @return string
@@ -57,6 +47,16 @@ class CategoryModel extends PostsCategoriesEntryModel implements CategoryInterfa
         }
 
         return $this->meta_title;
+    }
+
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

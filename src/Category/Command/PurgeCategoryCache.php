@@ -14,7 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class PurgeCategoryCache
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The category instance.
@@ -38,7 +38,6 @@ class PurgeCategoryCache
      */
     public function handle()
     {
-        $this->dispatch(new PurgeHttpCache($this->category->route('view')));
+        dispatch_now(new PurgeHttpCache($this->category->route('view')));
     }
-
 }

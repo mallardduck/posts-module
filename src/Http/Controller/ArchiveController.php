@@ -25,9 +25,9 @@ class ArchiveController extends PublicController
      */
     public function index($year, $month = null)
     {
-        $this->dispatch(new AddPostsBreadcrumb());
-        $this->dispatch(new AddArchiveBreadcrumb());
+        dispatch_now(new AddPostsBreadcrumb());
+        dispatch_now(new AddArchiveBreadcrumb());
 
-        return $this->view->make('anomaly.module.posts::archive/index', compact('year', 'month'));
+        return view('anomaly.module.posts::archive/index', compact('year', 'month'));
     }
 }

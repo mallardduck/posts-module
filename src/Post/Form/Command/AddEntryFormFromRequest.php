@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class AddEntryFormFromRequest
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The multiple form builder.

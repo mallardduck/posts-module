@@ -3,9 +3,6 @@
 use Anomaly\EditorFieldType\EditorFieldType;
 use Anomaly\EditorFieldType\EditorFieldTypePresenter;
 use Anomaly\PostsModule\Post\Contract\PostInterface;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\View\Factory;
-use Robbo\Presenter\Decorator;
 
 /**
  * Class PostContent
@@ -16,41 +13,6 @@ use Robbo\Presenter\Decorator;
  */
 class PostContent
 {
-
-    /**
-     * The view factory.
-     *
-     * @var Factory
-     */
-    protected $view;
-
-    /**
-     * The decorator utility.
-     *
-     * @var Decorator
-     */
-    protected $decorator;
-
-    /**
-     * The response factory.
-     *
-     * @var ResponseFactory
-     */
-    protected $response;
-
-    /**
-     * Create a new PostContent instance.
-     *
-     * @param Factory         $view
-     * @param Decorator       $decorator
-     * @param ResponseFactory $response
-     */
-    public function __construct(Factory $view, Decorator $decorator, ResponseFactory $response)
-    {
-        $this->view      = $view;
-        $this->decorator = $decorator;
-        $this->response  = $response;
-    }
 
     /**
      * Make the view content.
@@ -66,7 +28,7 @@ class PostContent
         $layout    = $type->getFieldType('layout');
         $presenter = $type->getFieldTypePresenter('layout');
 
-        $post->setContent($this->view->make($layout->getViewPath(), compact('post'))->render());
+        $post->setContent(view($layout->getViewPath(), compact('post'))->render());
 
         /**
          * If the type layout is taking the
@@ -76,7 +38,7 @@ class PostContent
          * extend parent view blocks.
          */
         if (strpos($presenter->content(), '{% extends') !== false) {
-            $post->setResponse($this->response->make($post->getContent()));
+            $post->setResponse(response($post->getContent()));
         }
     }
 }

@@ -41,8 +41,8 @@ class PostSeeder extends Seeder
     /**
      * Create a new PostSeeder instance.
      *
-     * @param PostRepositoryInterface     $posts
-     * @param TypeRepositoryInterface     $types
+     * @param PostRepositoryInterface $posts
+     * @param TypeRepositoryInterface $types
      * @param CategoryRepositoryInterface $categories
      */
     public function __construct(

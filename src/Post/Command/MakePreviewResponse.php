@@ -6,7 +6,6 @@ use Anomaly\PostsModule\Post\PostContent;
 use Anomaly\PostsModule\Post\PostLoader;
 use Anomaly\PostsModule\Post\PostResponse;
 
-
 /**
  * Class MakePreviewResponse
  *

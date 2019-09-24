@@ -25,7 +25,7 @@ class PostResponse
      *
      * @param ResponseFactory $response
      */
-    function __construct(ResponseFactory $response)
+    public function __construct(ResponseFactory $response)
     {
         $this->response = $response;
     }
@@ -38,7 +38,6 @@ class PostResponse
     public function make(PostInterface $post)
     {
         if (!$post->getResponse()) {
-
             $response = $this->response->view(
                 'anomaly.module.posts::posts.view',
                 [

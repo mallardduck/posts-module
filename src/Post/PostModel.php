@@ -62,6 +62,19 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     ];
 
     /**
+     * Restrict to recent posts only.
+     *
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function scopeRecent(Builder $query)
+    {
+        return $this
+            ->scopeLive($query)
+            ->orderBy('publish_at', 'DESC');
+    }
+
+    /**
      * Restrict to live posts only.
      *
      * @param  Builder $query
@@ -82,31 +95,6 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     }
 
     /**
-     * Restrict to recent posts only.
-     *
-     * @param  Builder $query
-     * @return Builder
-     */
-    public function scopeRecent(Builder $query)
-    {
-        return $this
-            ->scopeLive($query)
-            ->orderBy('publish_at', 'DESC');
-    }
-
-    /**
-     * Make the page.
-     *
-     * @return $this
-     */
-    public function make()
-    {
-        $this->dispatch(new MakePostResponse($this));
-
-        return $this;
-    }
-
-    /**
      * Return the page content.
      *
      * @return null|string
@@ -116,6 +104,41 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
         return $this
             ->make()
             ->getContent();
+    }
+
+    /**
+     * Get the content.
+     *
+     * @return null|string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set the content.
+     *
+     * @param $content
+     * @return $this
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Make the page.
+     *
+     * @return $this
+     */
+    public function make()
+    {
+        dispatch_now(new MakePostResponse($this));
+
+        return $this;
     }
 
     /**
@@ -149,16 +172,6 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     }
 
     /**
-     * Get the type.
-     *
-     * @return null|TypeInterface
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Get the type name.
      *
      * @return string
@@ -171,15 +184,13 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     }
 
     /**
-     * Get the type slug.
+     * Get the type.
      *
-     * @return string
+     * @return null|TypeInterface
      */
-    public function getTypeSlug()
+    public function getType()
     {
-        $type = $this->getType();
-
-        return $type->getSlug();
+        return $this->type;
     }
 
     /**
@@ -193,27 +204,15 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     }
 
     /**
-     * Get the category.
+     * Get the related entry's ID.
      *
-     * @return null|CategoryInterface
+     * @return null|int
      */
-    public function getCategory()
+    public function getEntryId()
     {
-        return $this->category;
-    }
+        $entry = $this->getEntry();
 
-    /**
-     * Get the category slug.
-     *
-     * @return null|string
-     */
-    public function getCategorySlug()
-    {
-        if (!$category = $this->getCategory()) {
-            return null;
-        }
-
-        return $category->getSlug();
+        return $entry->getId();
     }
 
     /**
@@ -224,18 +223,6 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     public function getEntry()
     {
         return $this->entry;
-    }
-
-    /**
-     * Get the related entry's ID.
-     *
-     * @return null|int
-     */
-    public function getEntryId()
-    {
-        $entry = $this->getEntry();
-
-        return $entry->getId();
     }
 
     /**
@@ -256,6 +243,16 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     public function isEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Return the publish at date.
+     *
+     * @return Carbon
+     */
+    public function getPublishAt()
+    {
+        return $this->publish_at;
     }
 
     /**
@@ -280,16 +277,6 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
     public function getMetaDescription()
     {
         return $this->meta_description;
-    }
-
-    /**
-     * Return the publish at date.
-     *
-     * @return Carbon
-     */
-    public function getPublishAt()
-    {
-        return $this->publish_at;
     }
 
     /**
@@ -326,29 +313,6 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
         $layout = $type->getFieldType('layout');
 
         return $layout->getViewPath();
-    }
-
-    /**
-     * Get the content.
-     *
-     * @return null|string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set the content.
-     *
-     * @param $content
-     * @return $this
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     /**
@@ -393,6 +357,42 @@ class PostModel extends PostsPostsEntryModel implements PostInterface
         }
 
         return $array;
+    }
+
+    /**
+     * Get the type slug.
+     *
+     * @return string
+     */
+    public function getTypeSlug()
+    {
+        $type = $this->getType();
+
+        return $type->getSlug();
+    }
+
+    /**
+     * Get the category slug.
+     *
+     * @return null|string
+     */
+    public function getCategorySlug()
+    {
+        if (!$category = $this->getCategory()) {
+            return null;
+        }
+
+        return $category->getSlug();
+    }
+
+    /**
+     * Get the category.
+     *
+     * @return null|CategoryInterface
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 
     /**

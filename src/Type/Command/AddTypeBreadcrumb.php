@@ -15,7 +15,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddTypeBreadcrumb
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The type instance.
@@ -43,7 +43,7 @@ class AddTypeBreadcrumb
     {
         $breadcrumbs->add(
             $this->type->getName(),
-            $this->dispatch(new GetTypePath($this->type))
+            dispatch_now(new GetTypePath($this->type))
         );
     }
 }

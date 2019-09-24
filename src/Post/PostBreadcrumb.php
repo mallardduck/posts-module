@@ -3,7 +3,6 @@
 use Anomaly\PostsModule\Post\Command\AddPostsBreadcrumb;
 use Anomaly\PostsModule\Post\Contract\PostInterface;
 use Anomaly\Streams\Platform\Ui\Breadcrumb\BreadcrumbCollection;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 
 /**
@@ -16,7 +15,6 @@ use Illuminate\Http\Request;
 class PostBreadcrumb
 {
 
-    use DispatchesJobs;
 
     /**
      * The request object.
@@ -35,7 +33,7 @@ class PostBreadcrumb
     /**
      * Create a new PostBreadcrumb instance.
      *
-     * @param Request              $request
+     * @param Request $request
      * @param BreadcrumbCollection $breadcrumbs
      */
     public function __construct(Request $request, BreadcrumbCollection $breadcrumbs)
@@ -51,7 +49,7 @@ class PostBreadcrumb
      */
     public function make(PostInterface $post)
     {
-        $this->dispatch(new AddPostsBreadcrumb());
+        dispatch_now(new AddPostsBreadcrumb());
 
         if ($category = $post->getCategory()) {
             $this->breadcrumbs->add($category->getTitle(), $category->route('view'));

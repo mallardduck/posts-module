@@ -18,5 +18,4 @@ class VersionsController extends \Anomaly\Streams\Platform\Http\Controller\Versi
      * @var string
      */
     protected $model = PostModel::class;
-
 }

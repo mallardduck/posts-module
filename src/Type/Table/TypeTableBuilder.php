@@ -54,5 +54,4 @@ class TypeTableBuilder extends TableBuilder
     protected $options = [
         'sortable' => true,
     ];
-
 }

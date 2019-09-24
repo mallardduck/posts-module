@@ -113,5 +113,4 @@ class PostsModuleServiceProvider extends AddonServiceProvider
         $versions->route($this->addon, VersionsController::class);
         $assignments->route($this->addon, AssignmentsController::class);
     }
-
 }

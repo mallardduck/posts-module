@@ -1,8 +1,8 @@
 <?php namespace Anomaly\PostsModule\Type;
 
+use Anomaly\PostsModule\Type\Command\DeleteTypeStream;
 use Anomaly\PostsModule\Type\Contract\TypeInterface;
 use Anomaly\PostsModule\Type\Contract\TypeRepositoryInterface;
-use Anomaly\PostsModule\Type\Command\DeleteTypeStream;
 use Anomaly\Streams\Platform\Entry\EntryRepository;
 
 /**
@@ -52,9 +52,8 @@ class TypeRepository extends EntryRepository implements TypeRepositoryInterface
     {
         parent::truncate();
 
-        foreach ($this->model->all() as $entry)
-        {
-            $this->dispatch(new DeleteTypeStream($entry));
+        foreach ($this->model->all() as $entry) {
+            dispatch_now(new DeleteTypeStream($entry));
         }
 
         return $this;

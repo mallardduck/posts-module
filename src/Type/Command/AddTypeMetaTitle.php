@@ -14,7 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddTypeMetaTitle
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The type instance.

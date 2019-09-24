@@ -14,7 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddCategoryMetadata
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The category instance.

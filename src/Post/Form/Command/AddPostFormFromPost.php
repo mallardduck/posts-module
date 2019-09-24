@@ -17,7 +17,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddPostFormFromPost
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The multiple form builder.

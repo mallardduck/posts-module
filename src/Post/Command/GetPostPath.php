@@ -4,14 +4,13 @@ use Anomaly\PostsModule\Post\Contract\PostInterface;
 use Anomaly\Streams\Platform\Support\Evaluator;
 use Anomaly\Streams\Platform\Support\Resolver;
 use Anomaly\Streams\Platform\Support\Value;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GetPostPath
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class GetPostPath
 {
@@ -36,29 +35,28 @@ class GetPostPath
     /**
      * Handle the command.
      *
-     * @param  Repository $config
-     * @param  Resolver   $resolver
-     * @param  Evaluator  $evaluator
-     * @param  Value      $value
+     * @param  Resolver $resolver
+     * @param  Evaluator $evaluator
+     * @param  Value $value
      * @return string
      */
-    public function handle(Repository $config, Resolver $resolver, Evaluator $evaluator, Value $value)
+    public function handle(Resolver $resolver, Evaluator $evaluator, Value $value)
     {
-        $base = '/' . $config->get('anomaly.module.posts::paths.module');
+        $base = '/' . config('anomaly.module.posts::paths.module');
 
         if (!$this->post->isLive()) {
             return $base . '/preview/' . $this->post->getStrId();
         }
 
         return $base . '/' . $value->make(
-            $evaluator->evaluate(
-                $resolver->resolve(
-                    $config->get('anomaly.module.posts::paths.permalink'),
+                $evaluator->evaluate(
+                    $resolver->resolve(
+                        config('anomaly.module.posts::paths.permalink'),
+                        ['post' => $this->post]
+                    ),
                     ['post' => $this->post]
                 ),
-                ['post' => $this->post]
-            ),
-            $this->post
-        );
+                $this->post
+            );
     }
 }

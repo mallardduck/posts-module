@@ -16,6 +16,34 @@ class PostCriteria extends EntryCriteria
 {
 
     /**
+     * Return only featured.
+     *
+     * @return $this
+     */
+    public function featured()
+    {
+        $this->recent();
+
+        $this->query->where('featured', true);
+
+        return $this;
+    }
+
+    /**
+     * Return chronologically.
+     *
+     * @return $this
+     */
+    public function recent()
+    {
+        $this->live();
+
+        $this->query->orderBy('publish_at', 'DESC');
+
+        return $this;
+    }
+
+    /**
      * Return only live.
      *
      * @return $this
@@ -37,34 +65,6 @@ class PostCriteria extends EntryCriteria
     }
 
     /**
-     * Return chronologically.
-     *
-     * @return $this
-     */
-    public function recent()
-    {
-        $this->live();
-
-        $this->query->orderBy('publish_at', 'DESC');
-
-        return $this;
-    }
-
-    /**
-     * Return only featured.
-     *
-     * @return $this
-     */
-    public function featured()
-    {
-        $this->recent();
-
-        $this->query->where('featured', true);
-
-        return $this;
-    }
-
-    /**
      * Add the type constraint.
      *
      * @param $identifier
@@ -73,7 +73,7 @@ class PostCriteria extends EntryCriteria
     public function type($identifier)
     {
         /* @var TypeInterface $type */
-        if (!$type = $this->dispatch(new GetType($identifier))) {
+        if (!$type = dispatch_now(new GetType($identifier))) {
             throw new \Exception('Post type [' . $identifier . '] doesn\'t exist!');
         }
 
@@ -106,5 +106,4 @@ class PostCriteria extends EntryCriteria
 
         return $this;
     }
-
 }

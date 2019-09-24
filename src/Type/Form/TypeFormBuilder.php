@@ -23,5 +23,4 @@ class TypeFormBuilder extends FormBuilder
             'disabled' => 'edit',
         ],
     ];
-
 }

@@ -48,9 +48,9 @@ class TypeSeeder extends Seeder
     /**
      * Create a new TypeSeeder instance.
      *
-     * @param TypeRepositoryInterface       $types
-     * @param FieldRepositoryInterface      $fields
-     * @param StreamRepositoryInterface     $streams
+     * @param TypeRepositoryInterface $types
+     * @param FieldRepositoryInterface $fields
+     * @param StreamRepositoryInterface $streams
      * @param AssignmentRepositoryInterface $assignments
      */
     public function __construct(

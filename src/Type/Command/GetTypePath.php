@@ -1,14 +1,13 @@
 <?php namespace Anomaly\PostsModule\Type\Command;
 
 use Anomaly\PostsModule\Type\Contract\TypeInterface;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GetTypePath
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class GetTypePath
 {
@@ -33,11 +32,10 @@ class GetTypePath
     /**
      * Handle the command.
      *
-     * @param  Repository $config
      * @return string
      */
-    public function handle(Repository $config)
+    public function handle()
     {
-        return $config->get('anomaly.module.posts::paths.module') . '/' . $this->category->getSlug();
+        return config('anomaly.module.posts::paths.module') . '/' . $this->category->getSlug();
     }
 }

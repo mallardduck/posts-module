@@ -14,7 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class AddTypeMetadata
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The type instance.

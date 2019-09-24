@@ -68,5 +68,4 @@ class AnomalyModulePostsCreatePostsStream extends Migration
         'enabled',
         'tags',
     ];
-
 }

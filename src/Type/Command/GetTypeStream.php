@@ -3,7 +3,6 @@
 use Anomaly\PostsModule\Type\Contract\TypeInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface;
 
-
 /**
  * Class GetTypeStream
  *

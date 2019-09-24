@@ -14,7 +14,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class PurgeIndexCache
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The post instance.
@@ -38,7 +38,6 @@ class PurgeIndexCache
      */
     public function handle()
     {
-        $this->dispatch(new PurgeHttpCache($this->post->route('posts.index')));
+        dispatch_now(new PurgeHttpCache($this->post->route('posts.index')));
     }
-
 }

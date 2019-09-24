@@ -25,7 +25,7 @@ class RssController extends PublicController
     public function recent(PostRepositoryInterface $posts, ResponseFactory $response)
     {
         $response = $response
-            ->view('module::posts/rss', ['posts' => $posts->getRecent($this->request->get('limit'))])
+            ->view('module::posts/rss', ['posts' => $posts->getRecent(request('limit'))])
             ->setTtl(3600);
 
         $response->headers->set('content-type', 'text/xml');
@@ -55,7 +55,7 @@ class RssController extends PublicController
         $response = $response
             ->view(
                 'module::posts/rss',
-                ['posts' => $posts->findManyByCategory($category, $this->request->get('limit'))]
+                ['posts' => $posts->findManyByCategory($category, request('limit'))]
             )
             ->setTtl(3600);
 
@@ -75,7 +75,7 @@ class RssController extends PublicController
     public function tag(PostRepositoryInterface $posts, ResponseFactory $response, $tag)
     {
         $response = $response
-            ->view('module::posts/rss', ['posts' => $posts->findManyByTag($tag, $this->request->get('limit'))])
+            ->view('module::posts/rss', ['posts' => $posts->findManyByTag($tag, request('limit'))])
             ->setTtl(3600);
 
         $response->headers->set('content-type', 'text/xml');

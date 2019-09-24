@@ -67,5 +67,4 @@ class CategoryTableBuilder extends TableBuilder
     protected $options = [
         'sortable' => true,
     ];
-
 }

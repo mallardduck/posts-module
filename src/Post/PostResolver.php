@@ -32,7 +32,7 @@ class PostResolver
      * Create a new PostResolver instance.
      *
      * @param PostRepositoryInterface $posts
-     * @param Route                   $route
+     * @param Route $route
      */
     public function __construct(PostRepositoryInterface $posts, Route $route)
     {

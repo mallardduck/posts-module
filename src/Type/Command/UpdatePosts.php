@@ -16,7 +16,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 class UpdatePosts
 {
 
-    use DispatchesJobs;
+
 
     /**
      * The post type instance.

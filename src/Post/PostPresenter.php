@@ -2,17 +2,15 @@
 
 use Anomaly\PostsModule\Post\Contract\PostInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
-use Anomaly\Streams\Platform\Support\Decorator;
 use Carbon\Carbon;
 use Collective\Html\HtmlBuilder;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class PostPresenter
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class PostPresenter extends EntryPresenter
 {
@@ -32,23 +30,14 @@ class PostPresenter extends EntryPresenter
     protected $object;
 
     /**
-     * The config repository.
-     *
-     * @var Repository
-     */
-    private $config;
-
-    /**
      * Create a new PostPresenter instance.
      *
      * @param HtmlBuilder $html
-     * @param Repository  $config
      * @param             $object
      */
-    public function __construct(HtmlBuilder $html, Repository $config, $object)
+    public function __construct(HtmlBuilder $html, $object)
     {
-        $this->html   = $html;
-        $this->config = $config;
+        $this->html = $html;
 
         parent::__construct($object);
     }
@@ -66,7 +55,7 @@ class PostPresenter extends EntryPresenter
     /**
      * Return the tag links.
      *
-     * @param  array  $attributes
+     * @param  array $attributes
      * @return string
      */
     public function tagLinks(array $attributes = [])
@@ -79,12 +68,11 @@ class PostPresenter extends EntryPresenter
                     implode(
                         '/',
                         [
-                            $this->config->get('anomaly.module.posts::paths.module'),
-                            $this->config->get('anomaly.module.posts::paths.tag'),
+                            config('anomaly.module.posts::paths.module'),
+                            config('anomaly.module.posts::paths.tag'),
                             $label,
                         ]
-                    )
-                    ,
+                    ),
                     $label,
                     $attributes
                 );
@@ -96,7 +84,7 @@ class PostPresenter extends EntryPresenter
     /**
      * Return the user's status as a label.
      *
-     * @param  string      $size
+     * @param  string $size
      * @return null|string
      */
     public function statusLabel($size = 'sm')
@@ -119,8 +107,8 @@ class PostPresenter extends EntryPresenter
         }
 
         return '<span class="tag tag-' . $size . ' tag-' . $color . '">' . trans(
-            'anomaly.module.posts::field.status.option.' . $status
-        ) . '</span>';
+                'anomaly.module.posts::field.status.option.' . $status
+            ) . '</span>';
     }
 
     /**
@@ -157,7 +145,7 @@ class PostPresenter extends EntryPresenter
         $entry = $this->object->getEntry();
 
         if ($entry && $entry->hasField($key)) {
-            return (New Decorator())->decorate($entry)->{$key};
+            return decorate($entry)->{$key};
         }
 
         return parent::__get($key);

@@ -2,15 +2,13 @@
 
 use Anomaly\PostsModule\Type\Contract\TypeInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface;
-use Illuminate\Contracts\Config\Repository;
-
 
 /**
  * Class CreateTypeStream
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class CreateTypeStream
 {
@@ -34,22 +32,21 @@ class CreateTypeStream
 
     /**
      * @param StreamRepositoryInterface $streams
-     * @param Repository                $config
      */
-    public function handle(StreamRepositoryInterface $streams, Repository $config)
+    public function handle(StreamRepositoryInterface $streams)
     {
         $streams->create(
             [
-                $config->get('app.fallback_locale') => [
+                config('app.fallback_locale') => [
                     'name'        => $this->type->getName(),
                     'description' => $this->type->getDescription(),
                 ],
-                'slug'                              => $this->type->getSlug() . '_posts',
-                'namespace'                         => 'posts',
-                'locked'                            => false,
-                'translatable'                      => true,
-                'trashable'                         => true,
-                'hidden'                            => true,
+                'slug'                        => $this->type->getSlug() . '_posts',
+                'namespace'                   => 'posts',
+                'locked'                      => false,
+                'translatable'                => true,
+                'trashable'                   => true,
+                'hidden'                      => true,
             ]
         );
     }

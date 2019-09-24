@@ -2,7 +2,6 @@
 
 use Anomaly\Streams\Platform\View\ViewTemplate;
 
-
 /**
  * Class AddTagMetaTitle
  *

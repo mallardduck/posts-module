@@ -4,7 +4,6 @@ use Anomaly\PostsModule\Type\Contract\TypeInterface;
 use Anomaly\PostsModule\Type\Contract\TypeRepositoryInterface;
 use Anomaly\Streams\Platform\Support\Presenter;
 
-
 /**
  * Class GetType
  *

@@ -37,16 +37,6 @@ class TypeModel extends PostsTypesEntryModel implements TypeInterface
     }
 
     /**
-     * Get the name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Get the description.
      *
      * @return string
@@ -71,6 +61,16 @@ class TypeModel extends PostsTypesEntryModel implements TypeInterface
     }
 
     /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get the meta description.
      *
      * @return string
@@ -78,16 +78,6 @@ class TypeModel extends PostsTypesEntryModel implements TypeInterface
     public function getMetaDescription()
     {
         return $this->meta_description;
-    }
-
-    /**
-     * Get the related entry stream.
-     *
-     * @return StreamInterface
-     */
-    public function getEntryStream()
-    {
-        return $this->dispatch(new GetTypeStream($this));
     }
 
     /**
@@ -100,6 +90,16 @@ class TypeModel extends PostsTypesEntryModel implements TypeInterface
         $stream = $this->getEntryStream();
 
         return $stream->getId();
+    }
+
+    /**
+     * Get the related entry stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntryStream()
+    {
+        return dispatch_now(new GetTypeStream($this));
     }
 
     /**

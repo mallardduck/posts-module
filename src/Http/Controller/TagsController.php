@@ -24,10 +24,10 @@ class TagsController extends PublicController
      */
     public function index($tag)
     {
-        $this->dispatch(new AddPostsBreadcrumb());
-        $this->dispatch(new AddTagBreadcrumb($tag));
-        $this->dispatch(new AddTagMetaTitle($tag));
+        dispatch_now(new AddPostsBreadcrumb());
+        dispatch_now(new AddTagBreadcrumb($tag));
+        dispatch_now(new AddTagMetaTitle($tag));
 
-        return $this->view->make('anomaly.module.posts::tags/index', compact('tag'));
+        return view('anomaly.module.posts::tags/index', compact('tag'));
     }
 }

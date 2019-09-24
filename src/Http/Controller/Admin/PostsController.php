@@ -42,7 +42,7 @@ class PostsController extends AdminController
      */
     public function choose(TypeRepositoryInterface $types)
     {
-        return $this->view->make('module::admin/posts/choose', ['types' => $types->all()]);
+        return view('module::admin/posts/choose', ['types' => $types->all()]);
     }
 
     /**
@@ -54,7 +54,7 @@ class PostsController extends AdminController
      */
     public function change(TypeRepositoryInterface $types, $id)
     {
-        return $this->view->make('module::admin/posts/change', ['types' => $types->all(), 'post' => $id]);
+        return view('module::admin/posts/change', ['types' => $types->all(), 'post' => $id]);
     }
 
     /**
@@ -65,8 +65,8 @@ class PostsController extends AdminController
      */
     public function create(PostEntryFormBuilder $form)
     {
-        $this->dispatch(new AddEntryFormFromRequest($form));
-        $this->dispatch(new AddPostFormFromRequest($form));
+        dispatch_now(new AddEntryFormFromRequest($form));
+        dispatch_now(new AddPostFormFromRequest($form));
 
         return $form->render();
     }
@@ -84,8 +84,8 @@ class PostsController extends AdminController
         /* @var PostInterface $post */
         $post = $posts->find($id);
 
-        $this->dispatch(new AddEntryFormFromPost($form, $post));
-        $this->dispatch(new AddPostFormFromPost($form, $post));
+        dispatch_now(new AddEntryFormFromPost($form, $post));
+        dispatch_now(new AddPostFormFromPost($form, $post));
 
         return $form->render($post);
     }
