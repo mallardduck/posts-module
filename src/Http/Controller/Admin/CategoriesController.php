@@ -63,7 +63,7 @@ class CategoriesController extends AdminController
         /* @var CategoryInterface $category */
         $category = $categories->find($id);
 
-        return $this->redirect->to($category->route('view'));
+        return redirect($category->route('view'));
     }
 
     /**
@@ -76,6 +76,6 @@ class CategoriesController extends AdminController
     {
         $stream = $streams->findBySlugAndNamespace('categories', 'posts');
 
-        return $this->redirect->to('admin/posts/assignments/' . $stream->getId());
+        return redirect('admin/posts/assignments/' . $stream->getId());
     }
 }
